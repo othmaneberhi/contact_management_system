@@ -3,7 +3,7 @@ package com.ensah.gs_contact.bo.contact;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Contact")
@@ -30,11 +30,12 @@ public class Contact {
     @Email(message = "Please enter a valid email")
     @Column(name="email2")
     private String pro_email;
-    @NotEmpty(message = "This field is required,Please choose one of the two genders")
+    @NotNull(message = "This field is required,Please choose one of the two genders")
+    @Enumerated(EnumType.STRING)
     @Column(name="gender")
     private Gender gender;
 
-    public Contact(Long id, String first_name, String last_name, String perso_phone, String pro_phone, String address, String perso_email, String pro_email, Gender gender) {
+    public Contact(Long id ,String first_name, String last_name, String perso_phone, String pro_phone, String address, String perso_email, String pro_email, Gender gender) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;

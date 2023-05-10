@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact List</title>
+</head>
+<body>
+<h1>Contact List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Personal Phone</th>
+        <th>Professional Phone</th>
+        <th>Address</th>
+        <th>Personal Email</th>
+        <th>Professional Email</th>
+        <th>Gender</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contact : ${contacts}">
+        <td th:text="${contact.first_name}" th:if="${contact.first_name != null}"></td>
+        <td th:text="${contact.last_name}" th:if="${contact.last_name != null}"></td>
+        <td th:text="${contact.perso_phone}" th:if="${contact.perso_phone != null}"></td>
+        <td th:text="${contact.pro_phone}" th:if="${contact.pro_phone != null}"></td>
+        <td th:text="${contact.address}" th:if="${contact.address != null}"></td>
+        <td th:text="${contact.perso_email}" th:if="${contact.perso_email != null}"></td>
+        <td th:text="${contact.pro_email}" th:if="${contact.pro_email != null}"></td>
+        <td th:text="${contact.gender}" th:if="${contact.gender != null}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
