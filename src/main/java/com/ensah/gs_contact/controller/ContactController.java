@@ -1,9 +1,7 @@
 package com.ensah.gs_contact.controller;
 
 import com.ensah.gs_contact.bo.contact.Contact;
-import com.ensah.gs_contact.bo.contact.Gender;
 import com.ensah.gs_contact.service.contact.IContactService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +36,7 @@ public class ContactController {
 
     @RequestMapping("/contacts")
     public String showContacts(Model model){
-        List<Contact> contactList = (List<Contact>) contactService.getAllContacts();
+        List<Contact> contactList = (List<Contact>) contactService.getAllContactsByOrderByLastName();
         model.addAttribute("contacts",contactList);
         return "contacts";
     }

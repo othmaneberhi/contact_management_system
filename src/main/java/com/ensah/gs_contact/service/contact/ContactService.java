@@ -35,8 +35,15 @@ public class ContactService implements IContactService{
         contactRepository.delete(contact);
     }
 
+
     @Override
     public List<Contact> getAllContacts() {
         return (List<Contact>) contactRepository.findAll();
     }
+
+    @Override
+    public Iterable<Contact> getAllContactsByOrderByLastName() {
+        return (List<Contact>) contactRepository.findAllByOrderByLastName();
+    }
+
 }

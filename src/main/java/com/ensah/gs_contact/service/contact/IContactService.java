@@ -13,4 +13,6 @@ public interface IContactService {
 
     public Iterable<Contact> getAllContacts();
 
+    public Iterable<Contact> getAllContactsByOrderByLastName();
+
 }
