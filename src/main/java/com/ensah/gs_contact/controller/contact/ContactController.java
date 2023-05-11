@@ -1,4 +1,4 @@
-package com.ensah.gs_contact.controller;
+package com.ensah.gs_contact.controller.contact;
 
 import com.ensah.gs_contact.bo.contact.Contact;
 import com.ensah.gs_contact.bo.message.Message;
@@ -25,7 +25,7 @@ public class ContactController {
     @GetMapping("/contacts/add")
     public String showAddContactForm(Model model) {
         model.addAttribute("contact", new Contact());
-        return "addContact";
+        return "contact/addContact";
     }
 
     @PostMapping("/contacts/add")
@@ -39,7 +39,7 @@ public class ContactController {
     public String showContacts(Model model){
         List<Contact> contactList = (List<Contact>) contactService.getAllContactsByOrderByLastName();
         model.addAttribute("contacts",contactList);
-        return "contacts";
+        return "contact/contacts";
     }
     @GetMapping("/contacts/{id}")
     public String getContactById(@PathVariable("id") Long id,Model model){
@@ -48,7 +48,7 @@ public class ContactController {
             throw new NotFoundException("contact not found");
         }
         model.addAttribute("contact",contact.get());
-        return "contact";
+        return "contact/contact";
     }
 
     @PostMapping("/contacts/{id}/delete")
@@ -58,7 +58,7 @@ public class ContactController {
             throw new NotFoundException("contact not found");
         }
         contactService.deleteContact(contactToDelete.get());
-        model.addAttribute("message",new Message("Contact deleted successfully ", MessageType.SUCCESS));
+        model.addAttribute("message",new Message(contactToDelete.get().getLastName()+"'s contact deleted successfully ", MessageType.SUCCESS));
 
         return "redirect:/contacts";
     }
@@ -89,7 +89,7 @@ public class ContactController {
             throw new NotFoundException("contact not found");
         }
         model.addAttribute("contact",contact.get());
-        return "updateContact";
+        return "contact/updateContact";
     }
 
     @GetMapping("/contacts/search")
@@ -113,7 +113,7 @@ public class ContactController {
             contacts.addAll( contactService.getContactByProPhone(phone));
         }
         model.addAttribute("contacts",contacts);
-        return "contacts";
+        return "contact/contacts";
     }
 
 

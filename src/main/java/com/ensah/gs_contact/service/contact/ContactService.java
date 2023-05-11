@@ -1,7 +1,7 @@
 package com.ensah.gs_contact.service.contact;
 
 import com.ensah.gs_contact.bo.contact.Contact;
-import com.ensah.gs_contact.repository.IContactRepository;
+import com.ensah.gs_contact.repository.contact.IContactRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

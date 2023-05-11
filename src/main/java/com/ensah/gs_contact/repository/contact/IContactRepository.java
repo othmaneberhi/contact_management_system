@@ -1,4 +1,4 @@
-package com.ensah.gs_contact.repository;
+package com.ensah.gs_contact.repository.contact;
 
 import com.ensah.gs_contact.bo.contact.Contact;
 import org.springframework.data.jpa.repository.Query;

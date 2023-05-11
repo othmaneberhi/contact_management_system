@@ -1,4 +1,4 @@
-package com.ensah.gs_contact.repository;
+package com.ensah.gs_contact.repository.group;
 
 import com.ensah.gs_contact.bo.group.Group;
 import org.springframework.data.repository.CrudRepository;

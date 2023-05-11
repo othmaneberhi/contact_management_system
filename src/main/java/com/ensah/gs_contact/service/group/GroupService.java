@@ -1,11 +1,13 @@
 package com.ensah.gs_contact.service.group;
 
 import com.ensah.gs_contact.bo.group.Group;
-import com.ensah.gs_contact.repository.IGroupRepository;
+import com.ensah.gs_contact.repository.group.IGroupRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class GroupService implements IGroupService{
 
     private final IGroupRepository groupRepository;
@@ -20,7 +22,7 @@ public class GroupService implements IGroupService{
     }
 
     @Override
-    public Optional<Group> getContactById(Long id) {
+    public Optional<Group> getGroupById(Long id) {
         return groupRepository.findById(id);
     }
 

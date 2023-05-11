@@ -10,6 +10,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public String handleNotFound(Model model,NotFoundException exception){
         model.addAttribute("message",exception.getMessage());
-        return "error404";
+        return "error/error404";
     }
 }

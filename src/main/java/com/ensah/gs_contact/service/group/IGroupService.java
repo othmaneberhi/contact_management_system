@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface IGroupService {
     public Iterable<Group> getAllGroups();
-    public Optional<Group> getContactById(Long id);
+    public Optional<Group> getGroupById(Long id);
     public void deleteGroup(Group group);
     public void addGroup(Group group);
     public void updateGroup(Group group);
