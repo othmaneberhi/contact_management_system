@@ -1,11 +1,14 @@
 package com.ensah.gs_contact.bo.contact;
 
+import com.ensah.gs_contact.bo.group.Group;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Contact")
@@ -40,6 +43,13 @@ public class Contact {
     @Enumerated(EnumType.STRING)
     @Column(name="gender")
     private Gender gender;
+
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @JoinTable(name="contact_groups",
+            joinColumns = @JoinColumn(name = "contact_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<Group> groups = new HashSet<>();
+
 
     public Contact(Long id , String firstName, String lastName, String persoPhone, String proPhone, String address, String persoEmail, String proEmail, Gender gender) {
         this.id = id;
@@ -128,6 +138,14 @@ public class Contact {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 
     @Override
