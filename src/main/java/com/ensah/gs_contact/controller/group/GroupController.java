@@ -86,6 +86,14 @@ public class GroupController {
         return "group/updateGroup";
     }
 
+    @GetMapping("/groups/search")
+    public String searchGroups(@RequestParam("name") String name,Model model){
+        List<Group> groups = groupService.getAllGroupsByName(name);
+        model.addAttribute("groups",groups);
+        model.addAttribute("message",new Message("Showing group results for "+name,MessageType.INFO));
+        return "group/groups";
+    }
+
 
 
 

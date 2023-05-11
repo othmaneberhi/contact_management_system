@@ -104,13 +104,18 @@ public class ContactController {
             contacts = contactService.getContactBySimilarName(name);
             contacts.addAll( contactService.getContactByPersoPhone(phone));
             contacts.addAll( contactService.getContactByProPhone(phone));
+            model.addAttribute("message",new Message("Showing contacts results for "+name+" and "+phone,MessageType.INFO));
         } else if (name!=null) {
             contacts = contactService.getContactBySimilarName(name);
 //            contacts = contactService.getContactByLastName(name);
 //            contacts.addAll( contactService.getContactByFirstName(name));
+
+            model.addAttribute("message",new Message("Showing contacts results for "+name,MessageType.INFO));
         } else if (phone != null) {
             contacts = contactService.getContactByPersoPhone(phone);
             contacts.addAll( contactService.getContactByProPhone(phone));
+            model.addAttribute("message",new Message("Showing contacts results for "+phone,MessageType.INFO));
+
         }
         model.addAttribute("contacts",contacts);
         return "contact/contacts";
