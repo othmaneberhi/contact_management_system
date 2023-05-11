@@ -23,7 +23,7 @@ public class Group {
     private String description;
 
 
-    @ManyToMany(mappedBy = "groups")
+    @ManyToMany(mappedBy = "groups", cascade = CascadeType.DETACH)
     private Set<Contact> contacts;
     public Group(Long id, String name) {
         this.id = id;
