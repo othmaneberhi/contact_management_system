@@ -1,5 +1,7 @@
 package com.ensah.gs_contact.bo.contact;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -7,6 +9,9 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Contact")
+@DynamicUpdate
+//tells Spring Data JPA to generate an SQL update statement that
+//only includes the modified attributes, rather than updating all attributes of the entity
 public class Contact {
 
     @Id
