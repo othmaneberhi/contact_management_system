@@ -10,11 +10,11 @@ public interface IContactService {
     public void addContact(Contact contact);
     public void updateContact(Contact contact);
 
-    void deleteContact(Contact contact);
+    public void deleteContact(Contact contact);
 
-    public Iterable<Contact> getAllContacts();
+    public List<Contact> getAllContacts();
 
-    public Iterable<Contact> getAllContactsByOrderByLastName();
+    public List<Contact> getAllContactsByOrderByLastName();
 
     public List<Contact> getContactByLastName(String lastname);
     public List<Contact> getContactByFirstName(String firstname);

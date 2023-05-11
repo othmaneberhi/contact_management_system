@@ -42,8 +42,8 @@ public class ContactService implements IContactService{
     }
 
     @Override
-    public Iterable<Contact> getAllContactsByOrderByLastName() {
-        return (List<Contact>) contactRepository.findAllByOrderByLastName();
+    public List<Contact> getAllContactsByOrderByLastName() {
+        return contactRepository.findAllByOrderByLastName();
     }
 
     @Override

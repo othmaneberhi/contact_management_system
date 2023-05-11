@@ -1,13 +1,15 @@
 package com.ensah.gs_contact.bo.group;
 
 import com.ensah.gs_contact.bo.contact.Contact;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name="Group")
+@Table(name="Groups")
 public class Group {
 
     @Id
@@ -19,6 +21,7 @@ public class Group {
 
     @Column(name = "description")
     private String description;
+
 
     @ManyToMany(mappedBy = "groups")
     private Set<Contact> contacts;
