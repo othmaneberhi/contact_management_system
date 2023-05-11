@@ -97,16 +97,17 @@ public class ContactController {
                                        @RequestParam(value = "phone",required = false) String phone,
                                        Model model){
 
-        System.out.println(name + " "+ phone);
         List<Contact> contacts = null;
         if(name!=null && phone!=null){
-            contacts = contactService.getContactByLastName(name);
-            contacts.addAll( contactService.getContactByFirstName(name));
+//            contacts = contactService.getContactByLastName(name);
+//            contacts.addAll( contactService.getContactByFirstName(name));
+            contacts = contactService.getContactBySimilarName(name);
             contacts.addAll( contactService.getContactByPersoPhone(phone));
             contacts.addAll( contactService.getContactByProPhone(phone));
         } else if (name!=null) {
-            contacts = contactService.getContactByLastName(name);
-            contacts.addAll( contactService.getContactByFirstName(name));
+            contacts = contactService.getContactBySimilarName(name);
+//            contacts = contactService.getContactByLastName(name);
+//            contacts.addAll( contactService.getContactByFirstName(name));
         } else if (phone != null) {
             contacts = contactService.getContactByPersoPhone(phone);
             contacts.addAll( contactService.getContactByProPhone(phone));

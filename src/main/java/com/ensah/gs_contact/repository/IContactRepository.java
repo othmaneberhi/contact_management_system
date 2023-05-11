@@ -1,7 +1,9 @@
 package com.ensah.gs_contact.repository;
 
 import com.ensah.gs_contact.bo.contact.Contact;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.OrderBy;
@@ -16,4 +18,6 @@ public interface IContactRepository extends CrudRepository<Contact,Long> {
     List<Contact> findContactByFirstNameContainingIgnoreCase(String firstname);
     List<Contact> findContactByPersoPhone(String persoPhone);
     List<Contact> findContactByProPhone(String proPhone);
+    @Query("SELECT c FROM Contact c WHERE SOUNDEX(c.firstName) = SOUNDEX(:name) OR SOUNDEX(c.lastName) = SOUNDEX(:name)")
+    List<Contact> findBySimilarName(@Param("name") String name);
 }

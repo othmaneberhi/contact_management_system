@@ -66,5 +66,10 @@ public class ContactService implements IContactService{
         return contactRepository.findContactByProPhone(proPhone);
     }
 
+    @Override
+    public List<Contact> getContactBySimilarName(String name) {
+        return contactRepository.findBySimilarName(name);
+    }
+
 
 }

@@ -21,4 +21,6 @@ public interface IContactService {
     public List<Contact> getContactByPersoPhone(String persoPhone);
     public List<Contact> getContactByProPhone(String proPhone);
 
+    public List<Contact> getContactBySimilarName(String name);
+
 }
