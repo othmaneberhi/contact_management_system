@@ -12,4 +12,8 @@ public interface IContactRepository extends CrudRepository<Contact,Long> {
 
     @OrderBy("lastName")
     List<Contact> findAllByOrderByLastName();
+    List<Contact> findContactByLastNameContainingIgnoreCase(String lastname);
+    List<Contact> findContactByFirstNameContainingIgnoreCase(String firstname);
+    List<Contact> findContactByPersoPhone(String persoPhone);
+    List<Contact> findContactByProPhone(String proPhone);
 }

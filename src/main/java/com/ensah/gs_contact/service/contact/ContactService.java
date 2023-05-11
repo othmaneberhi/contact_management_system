@@ -46,4 +46,25 @@ public class ContactService implements IContactService{
         return (List<Contact>) contactRepository.findAllByOrderByLastName();
     }
 
+    @Override
+    public List<Contact> getContactByLastName(String lastname) {
+        return contactRepository.findContactByLastNameContainingIgnoreCase(lastname);
+    }
+
+    @Override
+    public List<Contact> getContactByFirstName(String firstname) {
+        return contactRepository.findContactByFirstNameContainingIgnoreCase(firstname);
+    }
+
+    @Override
+    public List<Contact> getContactByPersoPhone(String persoPhone) {
+        return contactRepository.findContactByPersoPhone(persoPhone);
+    }
+
+    @Override
+    public List<Contact> getContactByProPhone(String proPhone) {
+        return contactRepository.findContactByProPhone(proPhone);
+    }
+
+
 }

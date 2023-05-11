@@ -25,7 +25,7 @@ public class ContactController {
     @GetMapping("/contacts/add")
     public String showAddContactForm(Model model) {
         model.addAttribute("contact", new Contact());
-        return "form";
+        return "addContact";
     }
 
     @PostMapping("/contacts/add")
@@ -42,12 +42,12 @@ public class ContactController {
         return "contacts";
     }
     @GetMapping("/contacts/{id}")
-    public String showContact(@PathVariable("id") Long id,Model model){
+    public String getContactById(@PathVariable("id") Long id,Model model){
         Optional<Contact> contact = contactService.getContactById(id);
         if(!contact.isPresent()){
             throw new NotFoundException("contact not found");
         }
-        model.addAttribute("contact",contact);
+        model.addAttribute("contact",contact.get());
         return "contact";
     }
 
@@ -79,6 +79,41 @@ public class ContactController {
         contact.get().setProPhone(newContact.getProPhone());
 
         contactService.updateContact(contact.get());
-        return "redirect:contacts/"+id;
+        return "redirect:/contacts/"+id;
     }
+
+    @GetMapping("/contacts/{id}/edit")
+    public String updateContactFrom(@PathVariable("id") Long id,Model model){
+        Optional<Contact> contact = contactService.getContactById(id);
+        if(!contact.isPresent()){
+            throw new NotFoundException("contact not found");
+        }
+        model.addAttribute("contact",contact.get());
+        return "updateContact";
+    }
+
+    @GetMapping("/contacts/search")
+    public String getContactByLastName(@RequestParam(value = "name",required = false) String name,
+                                       @RequestParam(value = "phone",required = false) String phone,
+                                       Model model){
+
+        System.out.println(name + " "+ phone);
+        List<Contact> contacts = null;
+        if(name!=null && phone!=null){
+            contacts = contactService.getContactByLastName(name);
+            contacts.addAll( contactService.getContactByFirstName(name));
+            contacts.addAll( contactService.getContactByPersoPhone(phone));
+            contacts.addAll( contactService.getContactByProPhone(phone));
+        } else if (name!=null) {
+            contacts = contactService.getContactByLastName(name);
+            contacts.addAll( contactService.getContactByFirstName(name));
+        } else if (phone != null) {
+            contacts = contactService.getContactByPersoPhone(phone);
+            contacts.addAll( contactService.getContactByProPhone(phone));
+        }
+        model.addAttribute("contacts",contacts);
+        return "contacts";
+    }
+
+
 }
