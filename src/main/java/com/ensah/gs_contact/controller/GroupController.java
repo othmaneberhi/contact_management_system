@@ -1,5 +1,6 @@
-package com.ensah.gs_contact.controller.group;
+package com.ensah.gs_contact.controller;
 
+import com.ensah.gs_contact.bo.contact.Contact;
 import com.ensah.gs_contact.bo.group.Group;
 import com.ensah.gs_contact.bo.message.Message;
 import com.ensah.gs_contact.bo.message.MessageType;
@@ -24,7 +25,6 @@ public class GroupController {
     @GetMapping("/groups")
     public String showGroups(Model model){
         List<Group> groups = groupService.getAllGroupsByOrderByName();
-        System.out.println(groups.get(0).getContacts());
         model.addAttribute("groups",groups);
         return "group/groups";
     }
@@ -40,6 +40,14 @@ public class GroupController {
         groupService.addGroup(group);
         model.addAttribute("message",new Message("Group added successfully", MessageType.SUCCESS));
         return "redirect:/groups";
+    }
+
+    @GetMapping("/groups/search")
+    public String searchGroups(@RequestParam("name") String name,Model model){
+        List<Group> groups = groupService.getAllGroupsByName(name);
+        model.addAttribute("groups",groups);
+        model.addAttribute("message",new Message("Showing group results for "+name,MessageType.INFO));
+        return "group/groups";
     }
 
     @GetMapping("/groups/{id}")
@@ -86,13 +94,6 @@ public class GroupController {
         return "group/updateGroup";
     }
 
-    @GetMapping("/groups/search")
-    public String searchGroups(@RequestParam("name") String name,Model model){
-        List<Group> groups = groupService.getAllGroupsByName(name);
-        model.addAttribute("groups",groups);
-        model.addAttribute("message",new Message("Showing group results for "+name,MessageType.INFO));
-        return "group/groups";
-    }
 
 
 

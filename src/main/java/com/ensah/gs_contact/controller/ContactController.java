@@ -1,4 +1,4 @@
-package com.ensah.gs_contact.controller.contact;
+package com.ensah.gs_contact.controller;
 
 import com.ensah.gs_contact.bo.contact.Contact;
 import com.ensah.gs_contact.bo.message.Message;

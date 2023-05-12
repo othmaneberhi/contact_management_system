@@ -23,8 +23,43 @@
 
         <td th:text="${group.description}" th:if="${group.description != null}"></td>
 
-        <td th:text="${group.contacts}"></td>
+        <table>
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Personal Phone</th>
+                <th>Professional Phone</th>
+                <th>Address</th>
+                <th>Personal Email</th>
+                <th>Professional Email</th>
+                <th>Gender</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="contact : ${group.contacts}">
+                <td th:text="${contact.lastName}" th:if="${contact.lastName != null}"></td>
+                <td th:text="${contact.firstName}" th:if="${contact.firstName != null}"></td>
 
+                <td th:text="${contact.persoPhone}" th:if="${contact.persoPhone != null}"></td>
+                <td th:else>unavailable</td>
+
+                <td th:text="${contact.proPhone}" th:if="${contact.proPhone != null}"></td>
+                <td th:else>unavailable</td>
+
+                <td th:text="${contact.address}" th:if="${contact.address != null}"></td>
+                <td th:else>unavailable</td>
+
+                <td th:text="${contact.persoEmail}" th:if="${contact.persoEmail != null}"></td>
+                <td th:else>unavailable</td>
+
+                <td th:text="${contact.proEmail}" th:if="${contact.proEmail != null}"></td>
+                <td th:else>unavailable</td>
+
+                <td th:text="${contact.gender}" th:if="${contact.gender != null}"></td>
+
+            </tr>
+            </tbody>
     </tr>
     </tbody>
 </table>
