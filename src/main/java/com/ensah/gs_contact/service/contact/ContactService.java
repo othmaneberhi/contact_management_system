@@ -58,12 +58,12 @@ public class ContactService implements IContactService{
 
     @Override
     public List<Contact> getContactByPersoPhone(String persoPhone) {
-        return contactRepository.findContactByPersoPhone(persoPhone);
+        return contactRepository.findContactByPersoPhoneContaining(persoPhone);
     }
 
     @Override
     public List<Contact> getContactByProPhone(String proPhone) {
-        return contactRepository.findContactByProPhone(proPhone);
+        return contactRepository.findContactByProPhoneContaining(proPhone);
     }
 
     @Override

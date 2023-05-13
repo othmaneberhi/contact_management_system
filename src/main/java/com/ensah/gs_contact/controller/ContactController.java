@@ -103,29 +103,29 @@ public class ContactController {
         return "contact/updateContact";
     }
 
-    @GetMapping("/contacts/search")
-    public String getContactByLastName(@RequestParam(value = "name",required = false) String name,
-                                       @RequestParam(value = "phone",required = false) String phone,
+    @PostMapping("/contacts/search")
+    public String getContactByLastName(@RequestParam("searchOption") String searchOption,
+                                       @RequestParam("query") String query,
                                        Model model){
 
         List<Contact> contacts = null;
-        if(name!=null && phone!=null){
-//            contacts = contactService.getContactByLastName(name);
-//            contacts.addAll( contactService.getContactByFirstName(name));
-            contacts = contactService.getContactBySimilarName(name);
-            contacts.addAll( contactService.getContactByPersoPhone(phone));
-            contacts.addAll( contactService.getContactByProPhone(phone));
-            model.addAttribute("message",new Message("Showing contacts results for "+name+" and "+phone,MessageType.INFO));
-        } else if (name!=null) {
-            contacts = contactService.getContactBySimilarName(name);
-//            contacts = contactService.getContactByLastName(name);
-//            contacts.addAll( contactService.getContactByFirstName(name));
-
-            model.addAttribute("message",new Message("Showing contacts results for "+name,MessageType.INFO));
-        } else if (phone != null) {
-            contacts = contactService.getContactByPersoPhone(phone);
-            contacts.addAll( contactService.getContactByProPhone(phone));
-            model.addAttribute("message",new Message("Showing contacts results for "+phone,MessageType.INFO));
+//        if(searchOption.equals("both")){
+//            contacts = contactService.getContactBySimilarName(name);
+//            contacts.addAll( contactService.getContactByPersoPhone(phone));
+//            contacts.addAll( contactService.getContactByProPhone(phone));
+//            model.addAttribute("message",new Message("Showing contacts results for "+name+" and "+phone,MessageType.INFO));
+//        }
+        if(query.isEmpty()){
+            contacts = contactService.getAllContacts();
+        }
+        else if (searchOption.equals("name")) {
+            contacts = contactService.getContactBySimilarName(query);
+            model.addAttribute("message",new Message("Showing contacts results for "+query,MessageType.INFO));
+        } else if (searchOption.equals("phone")) {
+            System.out.println(query);
+            contacts = contactService.getContactByPersoPhone(query);
+            contacts.addAll( contactService.getContactByProPhone(query));
+            model.addAttribute("message",new Message("Showing contacts results for "+query,MessageType.INFO));
 
         }
         model.addAttribute("contacts",contacts);
