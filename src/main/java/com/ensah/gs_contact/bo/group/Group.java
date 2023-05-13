@@ -75,4 +75,9 @@ public class Group {
                 ", contacts=" + contacts +
                 '}';
     }
+
+    public Group(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

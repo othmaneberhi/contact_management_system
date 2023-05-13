@@ -51,8 +51,7 @@ public class Contact {
     private Set<Group> groups = new HashSet<>();
 
 
-    public Contact(Long id , String firstName, String lastName, String persoPhone, String proPhone, String address, String persoEmail, String proEmail, Gender gender) {
-        this.id = id;
+    public Contact(String firstName, String lastName, String persoPhone, String proPhone, String address, String persoEmail, String proEmail, Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.persoPhone = persoPhone;

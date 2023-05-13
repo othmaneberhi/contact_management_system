@@ -13,14 +13,17 @@
   <div class="mb-3">
     <label class="form-label" for="first_name">First Name:</label>
     <input class="form-control" type="text" id="first_name" th:field="*{firstName}">
+    <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
   </div>
   <div class="mb-3">
     <label class="form-label" for="last_name">Last Name:</label>
     <input class="form-control" type="text" id="last_name" th:field="*{lastName}">
+    <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
   </div>
   <div class="mb-3">
     <label class="form-label"  for="perso_phone">Personal Phone:</label>
     <input class="form-control" type="text" id="perso_phone" th:field="*{persoPhone}">
+    <span th:if="${#fields.hasErrors('persoPhone')}" th:errors="*{persoPhone}"></span>
   </div>
   <div class="mb-3">
     <label class="form-label" for="pro_phone">Professional Phone:</label>
@@ -29,14 +32,17 @@
   <div class="mb-3">
     <label class="form-label" for="address">Address:</label>
     <input class="form-control" type="text" id="address" th:field="*{address}">
+    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
   </div>
   <div class="mb-3">
     <label class="form-label" for="perso_email">Personal Email:</label>
     <input class="form-control" type="email" id="perso_email" th:field="*{persoEmail}">
+    <span th:if="${#fields.hasErrors('persoEmail')}" th:errors="*{persoEmail}"></span>
   </div>
   <div class="mb-3">
     <label class="form-label" for="pro_email">Professional Email:</label>
     <input class="form-control" type="email" id="pro_email" th:field="*{proEmail}">
+    <span th:if="${#fields.hasErrors('proEmail')}" th:errors="*{proEmail}"></span>
   </div>
   <div class="mb-3">
 
@@ -52,6 +58,7 @@
         FEMALE
       </label>
     </div>
+    <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
   </div>
   <button type="submit" class="btn btn-primary">Add Contact</button>
 </form>

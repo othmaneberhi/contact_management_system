@@ -7,8 +7,10 @@ import com.ensah.gs_contact.exception.NotFoundException;
 import com.ensah.gs_contact.service.contact.IContactService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,22 +31,25 @@ public class ContactController {
     }
 
     @PostMapping("/contacts/add")
-    public String addContact(@ModelAttribute("contact") Contact contact,Model model) {
+    public String addContact(@Valid @ModelAttribute("contact") Contact contact, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "contact/addContact";
+        }
         contactService.addContact(contact);
         model.addAttribute("message",new Message("Contact added successfully ", MessageType.SUCCESS));
         return "redirect:/contacts";
     }
 
-    @RequestMapping("/contacts")
+    @GetMapping("/contacts")
     public String showContacts(Model model){
-        List<Contact> contactList = (List<Contact>) contactService.getAllContactsByOrderByLastName();
+        List<Contact> contactList = contactService.getAllContactsByOrderByLastName();
         model.addAttribute("contacts",contactList);
         return "contact/contacts";
     }
     @GetMapping("/contacts/{id}")
     public String getContactById(@PathVariable("id") Long id,Model model){
         Optional<Contact> contact = contactService.getContactById(id);
-        if(!contact.isPresent()){
+        if(contact.isEmpty()){
             throw new NotFoundException("contact not found");
         }
         model.addAttribute("contact",contact.get());
@@ -54,7 +59,7 @@ public class ContactController {
     @PostMapping("/contacts/{id}/delete")
     public String deleteContact(@PathVariable("id") Long id,Model model){
         Optional<Contact> contactToDelete = contactService.getContactById(id);
-        if(!contactToDelete.isPresent()){
+        if(contactToDelete.isEmpty()){
             throw new NotFoundException("contact not found");
         }
         contactService.deleteContact(contactToDelete.get());
@@ -64,9 +69,15 @@ public class ContactController {
     }
 
     @PostMapping("/contacts/{id}/edit")
-    public String updateContact(@PathVariable("id") Long id,@ModelAttribute("contact") Contact newContact){
+    public String updateContact(@PathVariable("id") Long id,
+                                @Valid @ModelAttribute("contact") Contact newContact,
+                                BindingResult result){
+        if(result.hasErrors()){
+            return "contact/updateContact";
+        }
+
         Optional<Contact> contact = contactService.getContactById(id);
-        if(!contact.isPresent()){
+        if(contact.isEmpty()){
             throw new NotFoundException("contact not found");
         }
         contact.get().setAddress(newContact.getAddress());
@@ -85,7 +96,7 @@ public class ContactController {
     @GetMapping("/contacts/{id}/edit")
     public String updateContactFrom(@PathVariable("id") Long id,Model model){
         Optional<Contact> contact = contactService.getContactById(id);
-        if(!contact.isPresent()){
+        if(contact.isEmpty()){
             throw new NotFoundException("contact not found");
         }
         model.addAttribute("contact",contact.get());
