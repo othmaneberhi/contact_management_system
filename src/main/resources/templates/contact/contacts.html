@@ -37,7 +37,7 @@
 
 <div class="row">
     <div class="col-md-3 my-4" th:each="contact : ${contacts}">
-        <a th:href="'contacts/'+${contact.id}" class="text-decoration-none">
+        <a th:href="@{/contacts/{id}(id=${contact.id})}" class="text-decoration-none">
         <div class="card grow">
             <div class="card-header d-flex align-items-center">
                 <span class="material-icons me-2">contacts</span>
