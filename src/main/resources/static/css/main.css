@@ -34,3 +34,7 @@ body{
     transition: all 0.2s ease-in-out;
 }
 
+.w-fit{
+    width: fit-content !important;
+    max-width: fit-content !important;
+}
