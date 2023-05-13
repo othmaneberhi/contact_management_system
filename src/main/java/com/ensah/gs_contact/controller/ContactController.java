@@ -109,12 +109,6 @@ public class ContactController {
                                        Model model){
 
         List<Contact> contacts = null;
-//        if(searchOption.equals("both")){
-//            contacts = contactService.getContactBySimilarName(name);
-//            contacts.addAll( contactService.getContactByPersoPhone(phone));
-//            contacts.addAll( contactService.getContactByProPhone(phone));
-//            model.addAttribute("message",new Message("Showing contacts results for "+name+" and "+phone,MessageType.INFO));
-//        }
         if(query.isEmpty()){
             contacts = contactService.getAllContacts();
         }

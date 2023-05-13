@@ -46,9 +46,15 @@ public class GroupController {
         return "redirect:/groups";
     }
 
-    @GetMapping("/groups/search")
-    public String searchGroups(@RequestParam("name") String name,Model model){
-        List<Group> groups = groupService.getAllGroupsByName(name);
+    @PostMapping("/groups/search")
+    public String searchGroups(@RequestParam("query") String name,Model model){
+        List<Group> groups = null;
+        if(name.isEmpty()){
+            groups=groupService.getAllGroupsByOrderByName();
+        }
+        else{
+            groups = groupService.getAllGroupsByName(name);
+        }
         model.addAttribute("groups",groups);
         model.addAttribute("message",new Message("Showing group results for "+name,MessageType.INFO));
         return "group/groups";
