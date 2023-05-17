@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +37,21 @@ public class ContactController {
         if(result.hasErrors()){
             return "contact/addContact";
         }
+
+        // automatically create a group of contacts with same lastname
+        Group groupWithThisLastName = groupService.getGroupsByName(contact.getLastName());
+        if(groupWithThisLastName==null){
+            groupWithThisLastName = new Group(contact.getLastName(),"Group of contacts with lastname "+contact.getLastName());
+            groupService.addGroup(groupWithThisLastName);
+        }
+        contact.setGroups(new HashSet<>());
+        contact.getGroups().add(groupWithThisLastName);
+
+        groupWithThisLastName.getContacts().add(contact);
         contactService.addContact(contact);
         model.addAttribute("message",new Message(contact.getLastName()+ "'s contact added successfully ", MessageType.SUCCESS));
+
+
         return "redirect:/contacts/"+contact.getId();
     }
 

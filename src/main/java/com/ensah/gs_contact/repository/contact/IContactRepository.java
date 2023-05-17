@@ -20,4 +20,7 @@ public interface IContactRepository extends CrudRepository<Contact,Long> {
     List<Contact> findContactByProPhoneContaining(String proPhone);
     @Query("SELECT c FROM Contact c WHERE SOUNDEX(c.firstName) = SOUNDEX(:name) OR SOUNDEX(c.lastName) = SOUNDEX(:name)")
     List<Contact> findBySimilarName(@Param("name") String name);
+
+    List<Contact> findContactByLastNameIgnoreCase(String lastName);
+
 }

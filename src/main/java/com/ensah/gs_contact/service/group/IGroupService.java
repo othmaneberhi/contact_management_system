@@ -12,6 +12,7 @@ public interface IGroupService {
     public void addGroup(Group group);
     public void updateGroup(Group group);
     public List<Group> getAllGroupsByOrderByName();
-    public List<Group> getAllGroupsByName(String name);
+    public Group getGroupsByName(String name);
+    public  List<Group> getAllGroupsContainingName(String name);
 
 }

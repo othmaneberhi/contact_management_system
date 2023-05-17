@@ -47,7 +47,12 @@ public class GroupService implements IGroupService{
     }
 
     @Override
-    public List<Group> getAllGroupsByName(String name) {
-        return groupRepository.findGroupByNameContainingIgnoreCase(name);
+    public Group getGroupsByName(String name) {
+        return groupRepository.findGroupByNameEqualsIgnoreCase(name);
+    }
+
+    @Override
+    public List<Group> getAllGroupsContainingName(String name) {
+        return groupRepository.findGroupsByNameContainingIgnoreCase(name);
     }
 }

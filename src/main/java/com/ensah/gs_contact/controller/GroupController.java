@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +20,11 @@ import java.util.Optional;
 public class GroupController {
 
     private final IGroupService groupService;
-    private final IContactService contatcService;
+    private final IContactService contactService;
 
     public GroupController(final IGroupService groupService,final IContactService contatcService) {
         this.groupService = groupService;
-        this.contatcService = contatcService;
+        this.contactService = contatcService;
     }
 
     @GetMapping("/groups")
@@ -58,7 +57,7 @@ public class GroupController {
             groups=groupService.getAllGroupsByOrderByName();
         }
         else{
-            groups = groupService.getAllGroupsByName(name);
+            groups = groupService.getAllGroupsContainingName(name);
         }
         model.addAttribute("groups",groups);
         model.addAttribute("message",new Message("Showing group results for "+name,MessageType.INFO));
@@ -72,7 +71,7 @@ public class GroupController {
            throw new NotFoundException("Group not found");
         }
         model.addAttribute("group",group.get());
-        List<Contact> contacts = contatcService.getAllContacts();
+        List<Contact> contacts = contactService.getAllContacts();
         model.addAttribute("contacts",contacts);
         return "group/group";
     }

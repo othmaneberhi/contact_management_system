@@ -9,6 +9,7 @@ import java.util.List;
 public interface IGroupRepository extends CrudRepository<Group,Long> {
     @OrderBy("name")
     public List<Group> findAllByOrderByName();
-    public List<Group> findGroupByNameContainingIgnoreCase(String name);
+    public Group findGroupByNameEqualsIgnoreCase(String name);
+    public  List<Group> findGroupsByNameContainingIgnoreCase(String name);
 
 }

@@ -71,5 +71,10 @@ public class ContactService implements IContactService{
         return contactRepository.findBySimilarName(name);
     }
 
+    @Override
+    public List<Contact> getContacstByLastName(String lastName) {
+        return contactRepository.findContactByLastNameIgnoreCase(lastName);
+    }
+
 
 }
