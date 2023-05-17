@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,6 +83,10 @@ public class GroupController {
        if (groupToDelete.isEmpty()){
            throw new NotFoundException("Group not found");
        }
+       //remove the group from the group list of the associated contacts to avoid the SQLIntegrityConstraintViolationException
+        for(Contact contact: groupToDelete.get().getContacts()) {
+            contact.getGroups().remove(groupToDelete.get());
+        }
        groupService.deleteGroup(groupToDelete.get());
        model.addAttribute("message", new Message(groupToDelete.get().getName()+" group deleted successfully",MessageType.SUCCESS));
        return "redirect:/groups";

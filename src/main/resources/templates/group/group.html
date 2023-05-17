@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="row my-2 px-5">
-        <div class="d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center" th:if="${not #strings.isEmpty(group.description)}">
             <span class="material-icons  me-2">description</span> <span class="h5 m-0" th:text="${group.description}"></span>
         </div>
     </div>
