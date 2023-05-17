@@ -1,10 +1,12 @@
 package com.ensah.gs_contact.controller;
 
 import com.ensah.gs_contact.bo.contact.Contact;
+import com.ensah.gs_contact.bo.group.Group;
 import com.ensah.gs_contact.bo.message.Message;
 import com.ensah.gs_contact.bo.message.MessageType;
 import com.ensah.gs_contact.exception.NotFoundException;
 import com.ensah.gs_contact.service.contact.IContactService;
+import com.ensah.gs_contact.service.group.IGroupService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,12 +20,11 @@ import java.util.Optional;
 public class ContactController {
 
     private final IContactService contactService;
-
-
-    public ContactController(final IContactService contactService) {
+    private final IGroupService groupService;
+    public ContactController(final IContactService contactService,final IGroupService groupService) {
         this.contactService = contactService;
+        this.groupService = groupService;
     }
-
     @GetMapping("/contacts/add")
     public String showAddContactForm(Model model) {
         model.addAttribute("contact", new Contact());
@@ -36,8 +37,8 @@ public class ContactController {
             return "contact/addContact";
         }
         contactService.addContact(contact);
-        model.addAttribute("message",new Message("Contact added successfully ", MessageType.SUCCESS));
-        return "redirect:/contacts";
+        model.addAttribute("message",new Message(contact.getLastName()+ "'s contact added successfully ", MessageType.SUCCESS));
+        return "redirect:/contacts/"+contact.getId();
     }
 
     @GetMapping("/contacts")
@@ -53,6 +54,8 @@ public class ContactController {
             throw new NotFoundException("contact not found");
         }
         model.addAttribute("contact",contact.get());
+        List<Group> groups = groupService.getAllGroupsByOrderByName();
+        model.addAttribute("groups",groups);
         return "contact/contact";
     }
 
@@ -126,5 +129,9 @@ public class ContactController {
         return "contact/contacts";
     }
 
+    @GetMapping("/contacts/search")
+        public String getSearch(){
+        return "redirect:/contacts";
+    }
 
 }

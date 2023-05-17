@@ -44,6 +44,8 @@
 </div>
 
 <div class="row">
+    <div class="fw-bold"  th:if="${message}" th:text="${message.msg}">
+    </div>
     <div class="col-md-3 my-4" th:each="contact : ${contacts}">
         <a th:href="@{/contacts/{id}(id=${contact.id})}" class="text-decoration-none">
         <div class="card grow">
@@ -53,11 +55,21 @@
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li th:if="contact.persoPhone!=null" class="list-group-item d-flex align-items-center"><span class="material-icons  me-2">phone</span> <span th:text="${contact.persoPhone}"></span></li>
-                    <li th:if="contact.proPhone!=null" class="list-group-item d-flex align-items-center"><span class="material-icons me-2">phone_in_talk</span> <span th:text="${contact.proPhone}"></span> </li>
-                    <li th:if="contact.persoEmail!=null" class="list-group-item d-flex align-items-center"><span class="material-icons me-2">email</span> <span th:text="${contact.persoEmail}"></span></li>
-                    <li th:if="contact.proEmail !=null"class="list-group-item d-flex align-items-center"><span class="material-icons me-2">alternate_email</span> <span th:text="${contact.proEmail}"></span> </li>
-                    <li th:if="contact.address !=null" class="list-group-item d-flex align-items-center"><span class="material-icons me-2">location_on</span> <span th:text="${contact.address}"></span> </li>
+                    <li th:if="${not #strings.isEmpty(contact.persoPhone)}" class="list-group-item d-flex align-items-center"><span class="material-icons  me-2">phone</span> <span th:text="${contact.persoPhone}"></span></li>
+                    <li th:if="${#strings.isEmpty(contact.persoPhone)}" class="list-group-item d-flex align-items-center"><span class="material-icons  me-2">phone</span> <span>Unavailable</span></li>
+
+                    <li th:if="${not #strings.isEmpty(contact.proPhone)}" class="list-group-item d-flex align-items-center"><span class="material-icons me-2">phone_in_talk</span> <span th:text="${contact.proPhone}"></span> </li>
+                    <li th:if="${#strings.isEmpty(contact.proPhone)}" class="list-group-item d-flex align-items-center"><span class="material-icons  me-2">phone</span> <span>Unavailable</span></li>
+
+                    <li th:if="${not #strings.isEmpty(contact.persoEmail)}" class="list-group-item d-flex align-items-center"><span class="material-icons me-2">email</span> <span th:text="${contact.persoEmail}"></span></li>
+                    <li th:if="${#strings.isEmpty(contact.persoEmail)}" class="list-group-item d-flex align-items-center"><span class="material-icons  me-2">phone</span> <span>Unavailable</span></li>
+
+                    <li th:if="${not #strings.isEmpty(contact.proEmail)}"class="list-group-item d-flex align-items-center"><span class="material-icons me-2">alternate_email</span> <span th:text="${contact.proEmail}"></span> </li>
+                    <li th:if="${#strings.isEmpty(contact.proEmail)}" class="list-group-item d-flex align-items-center"><span class="material-icons  me-2">phone</span> <span>Unavailable</span></li>
+
+                    <li th:if="${not #strings.isEmpty(contact.address)}" class="list-group-item d-flex align-items-center"><span class="material-icons me-2">location_on</span> <span th:text="${contact.address}"></span> </li>
+                    <li th:if="${#strings.isEmpty(contact.address)}" class="list-group-item d-flex align-items-center"><span class="material-icons  me-2">phone</span> <span>Unavailable</span></li>
+
                     <li class="list-group-item d-flex align-items-center"><span class="material-icons me-2">wc</span> <span th:text="${contact.gender}"></span></li>
                 </ul>
             </div>

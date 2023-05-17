@@ -27,18 +27,18 @@ public class ContactGroupsController {
         this.groupService = groupService;
     }
 
-    @PostMapping("/groups/{id}/contacts/add")
-    public String addContact(@PathVariable("id") Long group_id,
+    @PostMapping("/groups/contacts/add")
+    public String addContact(@RequestParam("group_id") Long group_id,
                              @RequestParam("contact_id") Long  contact_id,
                              Model model){
 
         Optional<Contact> contact = contactService.getContactById(contact_id);
         Optional<Group> group = groupService.getGroupById(group_id);
 
-        if(!group.isPresent()){
+        if(group.isEmpty()){
             throw new NotFoundException("Group not found");
         }
-        if(!contact.isPresent()){
+        if(contact.isEmpty()){
             throw new NotFoundException("Contact not found");
         }
 
@@ -47,8 +47,8 @@ public class ContactGroupsController {
 
         contactService.addContact(contact.get());
 
-        model.addAttribute("message",new Message("Contact "+contact.get().getLastName()+" added successfully", MessageType.SUCCESS));
-        return "redirect:/groups";
+        model.addAttribute("message",new Message("Contact "+contact.get().getLastName()+" added successfully to "+group.get().getName(), MessageType.SUCCESS));
+        return "redirect:/groups/"+group.get().getId();
     }
     
 }

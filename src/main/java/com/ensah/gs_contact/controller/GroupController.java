@@ -1,9 +1,11 @@
 package com.ensah.gs_contact.controller;
 
+import com.ensah.gs_contact.bo.contact.Contact;
 import com.ensah.gs_contact.bo.group.Group;
 import com.ensah.gs_contact.bo.message.Message;
 import com.ensah.gs_contact.bo.message.MessageType;
 import com.ensah.gs_contact.exception.NotFoundException;
+import com.ensah.gs_contact.service.contact.IContactService;
 import com.ensah.gs_contact.service.group.IGroupService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +20,11 @@ import java.util.Optional;
 public class GroupController {
 
     private final IGroupService groupService;
+    private final IContactService contatcService;
 
-    public GroupController(final IGroupService groupService) {
+    public GroupController(final IGroupService groupService,final IContactService contatcService) {
         this.groupService = groupService;
+        this.contatcService = contatcService;
     }
 
     @GetMapping("/groups")
@@ -67,6 +71,8 @@ public class GroupController {
            throw new NotFoundException("Group not found");
         }
         model.addAttribute("group",group.get());
+        List<Contact> contacts = contatcService.getAllContacts();
+        model.addAttribute("contacts",contacts);
         return "group/group";
     }
 

@@ -14,6 +14,7 @@
 
 </head>
 <body>
+
 <div class="container mt-4">
 
     <div class="row text-center">
@@ -40,16 +41,23 @@
     </div>
 
     <div class="row">
+        <div class="fw-bold"  th:if="${message}" th:text="${message.msg}">
+        </div>
         <div class="col-md-3 my-4" th:each="group : ${groups}">
-            <a th:href="@{/groups/{id}(id=${group.id})}" class="text-decoration-none">
+            <a th:href="@{/groups/{id}(id=${group.id})}" class="text-decoration-none" style="color: inherit;">
                 <div class="card grow">
                     <div class="card-header d-flex align-items-center">
                         <span class="material-icons me-2">group</span>
                         <span th:text="${group.name}"></span>
                     </div>
                     <div class="card-body">
-                        <div th:if="group.description!=null" class="list-group-item d-flex align-items-center">
+                        <div th:if="${not #strings.isEmpty(group.description)}" class="list-group-item d-flex align-items-center">
                             <p th:text="${group.description}"></p>
+                        </div>
+                        <div th:if="${#strings.isEmpty(group.description)}" class="list-group-item d-flex align-items-center">
+                            <a th:href="@{'/groups/'+ ${group.id} +'/edit'}" class="text-decoration-none d-flex justify-content-center">
+                                <span class="material-icons me-2 text-sm">description</span><span>Add a description</span>
+                            </a>
                         </div>
 
                     </div>
