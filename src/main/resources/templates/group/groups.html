@@ -41,7 +41,7 @@
     </div>
 
     <div class="row">
-        <div class="fw-bold"  th:if="${message}" th:text="${message.msg}">
+        <div class="fw-bold"  th:if="${message}" th:text="${message.getMsg()}">
         </div>
         <div class="col-md-3 my-4" th:each="group : ${groups}">
             <a th:href="@{/groups/{id}(id=${group.id})}" class="text-decoration-none" style="color: inherit;">

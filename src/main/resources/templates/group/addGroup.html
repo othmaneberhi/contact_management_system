@@ -13,11 +13,13 @@
 <body>
 <div class="row text-center my-3">
   <div class="col">
-    <h2>Add a contact</h2>
+    <h2>Add a group</h2>
     <p>Add a new group, and Keep your contact list up-to-date and organized.</p>
   </div>
 </div>
-
+<div th:if="${message!=null}" class="error text-center my-3 alert alert-danger">
+  <p th:text="${message.getMsg()}"></p>
+</div>
 <div class="col-4 mx-auto ">
   <form th:object="${group}" th:action="@{/groups/add}" method="post">
     <div class="mb-3 mx-1">

@@ -7,12 +7,14 @@ import com.ensah.gs_contact.bo.message.MessageType;
 import com.ensah.gs_contact.exception.NotFoundException;
 import com.ensah.gs_contact.service.contact.IContactService;
 import com.ensah.gs_contact.service.group.IGroupService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +47,18 @@ public class GroupController {
         if(result.hasErrors()){
             return "group/addGroup";
         }
-        groupService.addGroup(group);
+        try{
+            groupService.addGroup(group);
+        }
+        catch (DataIntegrityViolationException e) {
+            if(e.getMessage().contains("unique_group_name")){
+                model.addAttribute("message",new Message("A group named "+group.getName()+" already exist",MessageType.ERROR));
+            }
+            else{
+                model.addAttribute("message",new Message("an error occur while adding the new group",MessageType.ERROR));
+            }
+            return "group/addGroup";
+        }
         model.addAttribute("message",new Message("Group added successfully", MessageType.SUCCESS));
         return "redirect:/groups";
     }

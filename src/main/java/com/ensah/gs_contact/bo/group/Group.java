@@ -1,15 +1,17 @@
 package com.ensah.gs_contact.bo.group;
 
 import com.ensah.gs_contact.bo.contact.Contact;
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name="Groups")
+@Table(name="Groups",
+        uniqueConstraints = {
+            @UniqueConstraint(name = "unique_group_name",columnNames = {"name"})
+        }
+)
 public class Group {
 
     @Id

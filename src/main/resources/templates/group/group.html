@@ -60,7 +60,7 @@
         </div>
     </div>
 </div>
-<div class="alert alert-success row my-4 w-fit mx-auto" role="alert"  th:if="${message}" th:text="${message.msg}">
+<div class="alert alert-success row my-4 w-fit mx-auto" role="alert"  th:if="${message}" th:text="${message.getMsg()}">
 </div>
 <div class="row my-4 d-flex justify-content-center px-5">
     <div class="col-6 mx-auto">
@@ -95,7 +95,7 @@
         </div>
     </div>
 </div>
-    <div class="row my-4" th:if="${#lists.isEmpty(group.contacts)}">
+    <div class="row my-4" th:if="${not #lists.isEmpty(group.contacts)}">
         <div class="d-flex align-items-center">
             <span class="material-icons  me-2">contacts</span>
             <h4>Contacts</h4> ( <span th:text="${#lists.size(group.contacts)}"></span>)
