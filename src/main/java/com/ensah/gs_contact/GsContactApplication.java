@@ -32,7 +32,9 @@ public class GsContactApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		//this.addRandomContacts();
+		//this.addRandomGroups();
+		//this.addRandomContactGroups();
 	}
 
 	private int getRandomNumber(int min, int max) {
