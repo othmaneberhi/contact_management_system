@@ -14,9 +14,11 @@
     <h2>Update the group</h2>
   </div>
 </div>
-
+<div th:if="${message!=null}" class="error text-center my-3 alert alert-danger">
+  <p th:text="${message.getMsg()}"></p>
+</div>
 <div class="col-4 mx-auto ">
-  <form th:object="${group}" th:action="@{/groups/add}" method="post">
+  <form th:object="${group}" th:action="@{'/groups/'+${group.id}+'/edit'}" method="post">
     <div class="mb-3 mx-1">
       <label class="form-label"  for="name">Name</label>
       <input class="form-control" type="text" id="name" th:field="*{name}">

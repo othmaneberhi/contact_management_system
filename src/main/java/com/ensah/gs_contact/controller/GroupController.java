@@ -107,7 +107,8 @@ public class GroupController {
     @PostMapping("/groups/{id}/edit")
     public String updateGroup(@Valid @PathVariable("id") Long id,
                               @ModelAttribute("group") Group newGroup,
-                              BindingResult result){
+                              BindingResult result,
+                              Model model){
         if(result.hasErrors()){
             return "group/updateGroup";
         }
@@ -118,7 +119,20 @@ public class GroupController {
         groupToEdit.get().setName(newGroup.getName());
         groupToEdit.get().setDescription(newGroup.getDescription());
 
-        groupService.updateGroup(groupToEdit.get());
+        try{
+            groupService.updateGroup(groupToEdit.get());
+        }
+        catch (DataIntegrityViolationException e) {
+            if(e.getMessage().contains("unique_group_name")){
+                model.addAttribute("message",new Message("A group named "+groupToEdit.get().getName()+" already exist",MessageType.ERROR));
+            }
+            else{
+                model.addAttribute("message",new Message("an error occur while adding the new group",MessageType.ERROR));
+            }
+            return "group/updateGroup";
+        }
+
+
         return "redirect:/groups";
     }
 
