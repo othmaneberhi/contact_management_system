@@ -127,7 +127,7 @@ public class GroupController {
                 model.addAttribute("message",new Message("A group named "+groupToEdit.get().getName()+" already exist",MessageType.ERROR));
             }
             else{
-                model.addAttribute("message",new Message("an error occur while adding the new group",MessageType.ERROR));
+                model.addAttribute("message",new Message("an error occur while updating the group",MessageType.ERROR));
             }
             return "group/updateGroup";
         }
