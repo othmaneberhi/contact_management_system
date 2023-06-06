@@ -47,6 +47,7 @@ public class ContactController {
         contact.setGroups(new HashSet<>());
         contact.getGroups().add(groupWithThisLastName);
 
+        groupWithThisLastName.setContacts(new HashSet<>());
         groupWithThisLastName.getContacts().add(contact);
         contactService.addContact(contact);
         model.addAttribute("message",new Message(contact.getLastName()+ "'s contact added successfully ", MessageType.SUCCESS));
@@ -133,7 +134,6 @@ public class ContactController {
             contacts = contactService.getContactBySimilarName(query);
             model.addAttribute("message",new Message("Showing contacts results for "+query,MessageType.INFO));
         } else if (searchOption.equals("phone")) {
-            System.out.println(query);
             contacts = contactService.getContactByPersoPhone(query);
             contacts.addAll( contactService.getContactByProPhone(query));
             model.addAttribute("message",new Message("Showing contacts results for "+query,MessageType.INFO));

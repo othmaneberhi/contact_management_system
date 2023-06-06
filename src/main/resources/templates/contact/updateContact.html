@@ -16,7 +16,7 @@
 </div>
 
 <div class="d-flex justify-content-center ">
-  <form th:object="${contact}" th:action="@{/contacts/{id}/edit(id=${contactId})}" method="post">
+  <form th:object="${contact}" th:action="@{/contacts/{id}/edit(id=${contact.id})}" method="post">
     <div class="d-flex">
       <div class="mb-3 mx-1">
         <label class="form-label" for="first_name">First Name:</label>
